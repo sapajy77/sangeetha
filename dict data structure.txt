@@ -1,0 +1,187 @@
+Dict
+----
+We can use List,tuple and set to represent a group individual objects as a 
+single entity
+-->if we want to represent a group of objects as key-value pairs then we should 
+go for dictionary
+ex:
+rollno----name
+ph---addr
+
+--->insertion order is not preserved
+--->duplicate keys are not allowed but values can be duplicated
+--->heterogenous elements are allowed for both key and value
+--->dict are mutable
+--->dict is dynamic
+--->indexing and slicing are not applicable
+
+How to create a dictionary?
+---------------------------
+d={} --->creating empty dict  or d=dict() --->using dict function
+
+if we know elements already
+----------------------------
+ex:
+d={100:"netzwerk",200:"company"}
+print(type(d),d) 
+
+how to access data from the dict?
+---------------------------------
+we can access data by using keys
+d[key]
+
+ex:
+d={100:"netzwerk",200:"company"}
+print(d[100])--->netzwerk
+print(d[400])--->KeyError: 400
+
+
+How to update dictionaries?
+---------------------------
+-->d[key]=value
+-->if the key is not available then a new entry will be added to the dictionary
+with the specified key-value pair
+-->if the key is already available then old value will be replaced with new value.
+
+ex:
+d={100:"netzwerk",200:"company"}
+print(d)
+d[300]="bangalore"
+print(d)
+
+ex:
+d={100:"netzwerk",200:"company"}
+print(d)
+d[100]="bangalore"
+print(d)
+
+How to delete elements from dictionary?
+--------------------------------------
+1)del d[key]
+-->it delete entry associated with the specified key
+-->if the key is not available then we will get key error
+ex:
+d={100:"netzwerk",200:"company"}
+print(d)
+del d[100]
+print(d)--->200:"company"
+
+2)d.clear()
+to removes all entries from the dict
+ex:
+d={100:"netzwerk",200:"company"}
+print(d)
+d.clear()
+print(d)
+
+3)del d
+to delete total dictionary
+ex:
+d={100:"netzwerk",200:"company"}
+print(d)
+del d
+print(d)
+
+important functions of dict
+----------------------------
+1)dict()
+to create a dictionary
+
+d=dict()
+d=dict({100:"netzwerk",200:"company"})
+d=dict([(100,"netzwerk"),(200,"company")])--->it creates dictionary with the given
+list of tuple elements
+
+2)len()
+returns the nummber of items in the dict
+
+3)get()
+d.get(key)
+ex:
+d={100:"netzwerk",200:"company"}
+print(d[100])
+print(d.get(100))
+#print(d[400])--->KeyError:400
+print(d.get(400))--->None
+
+d.get(key,defaultvalue)
+ex:
+d={100:"netzwerk",200:"company"}
+print(d[100])
+print(d.get(100))
+#print(d[400])
+print(d.get(400,"guest"))
+
+5)pop(key)
+d.pop(key)
+--->it removes the entry associated with specified key and returns the corresponding
+value
+--->if the specified key is not available then we will get keyError
+ex:
+d={100:"netzwerk",200:"company"}
+print(d.pop(100))
+print(d)
+print(d.pop(400))
+
+6)popitem()
+it removes an arbitary item(key-value) from the dict and returns it
+ex:
+d={100:"netzwerk",200:"company"}
+print(d)
+print(d.popitem())
+
+7)keys()
+-->it returns all keys associated with dict
+
+ex:
+d={100:"netzwerk",200:"company"}
+print(d.keys())
+for k in d.keys():
+    print(k)
+
+8)values
+-->it returns all values associated with dict
+ex:
+d={100:"netzwerk",200:"company"}
+print(d.values())
+for k in d.values():
+    print(k)
+
+9)items()
+it returns list of tuple representing key-value pairs
+[(k,v),(k,v)...]
+ex:
+d={100:"netzwerk",200:"company"}
+for k,v in d.items():
+    print(f"{k}---{v}")
+
+10)copy()
+to create exactly duplicate dict(cloned copy)
+d1=d.copy()
+
+11)setdeafault():
+d.setdefault(k,v)
+--->if the key is already available then this function returns the corresponding 
+value
+--->if the key is not available then the specified key-value will be added as
+new item to the dict
+
+ex:
+d={100:"netzwerk",200:"company"}
+print(d.setdefault(300,"bangalore"))
+print(d)
+
+12)update()
+------------
+d.update(x)
+ex:
+d1={100:"netzwerk"}
+d2={200:"company"}
+d1.update(d2)
+print(d1)
+
+Dictionary comprehension
+------------------------
+ex:
+s={x:x*x for x in range(10)}
+print(s)
