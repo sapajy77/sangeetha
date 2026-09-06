@@ -1,0 +1,251 @@
+File handling
+--------------
+-->As the part of programming requirement,we have to store our data permanently for
+future purpose.
+-->files are very common permanent storage areas to store our data.
+
+types of files
+--------------
+there are 2 types of files
+
+1)text files:
+-------------
+usually we can use text files to store character data.
+
+2)binary files
+---------------
+usually we can use binally files to store binary data like images,video files and
+audio file etc.
+
+opening a file
+---------------
+-->before performing any operation(like read or write) on the file,first we have to
+open that file.for this we should use python's inbuilt function open()
+-->but at the time of opening,we have to specify mode,which represents the purpose
+of the opening the file
+
+f=open(filename,mode)
+
+the allowed modes in python are 
+----------------------------------
+1)r--->open an existing file for read operation.the file pointer is positioned at 
+the beginning of the file.if the specified file does not exist then we will get
+FileNotFoundError.This is default mode.
+
+2)w-->open an existing file for write operation,if the file already contains some
+data then it will be overridden.if the specified file is not already available
+then this mode will create that file
+
+3)a-->open an existing file for append operation.it wont override existing data.
+if the specified file is not already available then this mode will create a 
+new file
+
+4)r+-->to read and write into the file.the previous data in the file will not be 
+deleted.the file pointer is places at the beginning of the file.
+
+5)w+-->to write and read data.it will override existing data
+
+6)a+-->to append and read data from the file.it wont override existing data
+
+7)x-->to open a file in exclusive creation mode for write operation.if the file
+already exists then we will get FileExistsError.
+
+note:all the above modes are applicable for text files.if the above modes 
+suffixed with 'b' then these represents for binary files
+ex:
+rb,wb,ab,r+b,w+b,a+b,xb
+-----------------------------------------------------------------------------
+
+f=open("abc.txt","w")
+
+closing a file
+--------------
+After completing our operation on the file,it is highly recommended to close the
+file.for this we have to use close() function
+f.close()
+
+various properties of the file object
+-------------------------------------
+once we opened a file and we got file object,we can get various details related
+to that file by using its properties
+
+name--->name of opened file
+mode--->mode in which the file is opened
+closed--->returns boolen value indicates that file is closed or not
+readable()--->returns boolean value indicates that whether file is readable or not
+writable()--->returns boolean value indicates that whether file is writable or not
+
+ex:
+f=open("abc.txt","w")
+print("file name",f.name)
+print("file mode",f.mode)
+print("is file readable?",f.readable())
+print("is file writable?",f.writable())
+print("is file closed?",f.closed)
+f.close()
+print("is file closed?",f.closed)
+
+
+writing data to text file
+-------------------------
+we can write character data to the text files by using the following 2 methods
+1)write(str)
+ex:
+f=open("abc.txt","w")
+f.write("ankita\n")
+f.write("divya\n")
+f.write("sneha\n")
+print("data written success")
+f.close()
+
+2)writelines(list of lines)
+ex:
+f=open("abcd.txt","w")
+l=['prashant\n','sahithya\n','vishwa']
+f.writelines(l)
+print("data written success")
+f.close()
+
+Reading character data from the text files
+-------------------------------------------
+we can read character data from the text file by using following read methods
+
+1)read()--->to read total data from the file
+2)read(n)--->to read 'n' character from the file
+3)readline()--->to read only one line
+4)readlines()--->to read all lines into a list
+
+ex1:
+f=open("abcd.txt","r")
+data=f.read()
+print(data)
+f.close()
+
+ex2:
+f=open("abcd.txt","r")
+data=f.read(10)
+print(data)
+f.close()
+
+ex3:
+f=open("abcd.txt","r")
+data=f.readline()
+print(data,end='')
+f.close()
+
+ex4:
+f=open("abcd.txt","r")
+data=f.readlines()
+print(data)
+f.close()
+
+the with statement
+------------------
+-->the with statement can be used while opening a file.we can use this to group file
+operations statements within a block.
+-->the advantage of with statement is it will take care of closing of file,after
+completing all operation automatically even in the case of exception also,and we 
+are not required to close explicitly
+ex:
+#f=open("abcd.txt","r")
+with open("abcd.txt","w") as f:
+    f.write("netzwerk\n")
+    f.write("academy\n")
+    print("is file closed",f.closed)
+print("is file closed",f.closed)   
+   
+the seek() and tell() methods
+-----------------------------
+tell()
+--->we can use tell() method to return current position of the cursor(file pointer)
+from the beginning of the file
+--->the position(index) of first character in files is zero just like string index
+ex:
+print(f.tell())f=open("abcd.txt","r")
+print(f.tell())
+print(f.read(2))
+print(f.tell())
+print(f.read(2))
+print(f.tell())
+
+seek()
+------
+we can use seek() method to move cursor(file pointer) to specified location.
+f.seek(offset,fromwhere)--->offset represents the number of positions
+the allowed values for 2nd attribute (from where)are
+0--->from the beginning of the file(default value)
+1--->from the current position
+2--->from the end of the file
+
+note:python 2 suppors all 3 values but in python 3 supports only 0
+
+ex:
+data="all students in our class very intelligent"
+f=open("abc.txt","w")
+f.write(data)
+with open("abc.txt","r+") as f:
+    text=f.read()
+    print(text)
+    print("the current position",f.tell())
+    f.seek(2)
+    print("the current position",f.tell())
+    text=f.read()
+    print(text)
+
+handling binary data
+--------------------
+it is the requirement to read or write binary data like images,videos,audios files
+etc
+
+program to read image file and write to new image file
+-------------------------------------------------------
+ex:
+f1=open("netzwerk-logo.png","rb")
+f2=open("newlogo.png","wb")
+bytes=f1.read()
+f2.write(bytes)
+print("new images is available with the name:newlogo")
+
+handling CSV files
+-------------------
+--->CSV--->comma seperated values
+--->as the part of programming,it is very common requirement to read and write data
+wrt csv files.python provides csv module to handle csv files
+
+writing data into csv file
+--------------------------
+ex:
+import csv
+with open("emp.csv","w",newline='') as f:
+    w=csv.writer(f)
+    w.writerow(["ENO","ENAME","ESAL","EADDR"])
+    n=int(input("enter no of employees:"))
+    for i in range(n):
+        eno=input("enter employee number")
+        ename=input("enter employee name")
+        esal=input("enter employee salary")
+        eaddr=input("enter employee address")
+        w.writerow([eno,ename,esal,eaddr])
+print("total employee data written to csv file successfully")
+                
+Reading data from csv file
+----------------------------
+ex:
+import csv
+f=open("emp.csv","r")
+r=csv.reader(f)
+data=list(r)
+#print(data)
+for i in data:
+    for j in i:
+        print(j,"\t",end="")
+    print()
+
+
+
+ 
+
+
+
+
+
